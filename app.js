@@ -49,7 +49,8 @@ new Vue({
             await Promise.all[
                 this.run(1,1),
                 this.run(1,2),
-                this.run(2,1)
+                this.run(2,1),
+                this.run(2,2)
             ];
 
             this.allRunning = false;
