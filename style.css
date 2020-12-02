@@ -151,10 +151,10 @@ a.button.disabled,
 }
 
 .day:nth-child(odd) {
-  border-top: 10px solid   #d84d4d;
-  border-bottom: 2px dashed#d84d4d;
-  border-right: 2px dashed #d84d4d;
-  border-left: 2px dashed  #d84d4d;
+  border-top: 10px solid    #d84d4d;
+  border-bottom: 2px dashed #d84d4d;
+  border-right: 2px dashed  #d84d4d;
+  border-left: 2px dashed   #d84d4d;
 
 }
 
