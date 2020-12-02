@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Advent of Code">
+    <meta property="og:site_name" content="advent-of-code">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="http://aoc.spaghet.me">
+    <meta name="twitter:site" content="http://aoc.spaghet.me">
+    <meta data-hid="title" name="title" content="Advent of Code | spaget">
+    <meta data-hid="description" name="description" content="My solutions to the Advent of Code 2020">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Advent of Code | spaghet">
+    <meta property="og:description" content="My solutions to the Advent of Code 2020">
+    <meta property="og:image" content="ollie.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Advent of Code | spaghet">
+    <meta name="twitter:description" content="My solutions to the Advent of Code 2020">
+    <meta name="twitter:image" content="ollie.png">
+    <meta name="twitter:image:alt" content="My cute dog in Christmas garb.">
+    <title>Advent of Code | spaghet</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Advent of Code 2020</h1>
+            <p>Welcome to my solutions for the 2020 Advent of Code. This year I decided to play around with <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank"><em>Web Workers</em></a> and implements my solutions as a website. Feel free to try out your AoC test data against my solutions. You can view the source on <a href="https://www.github.com/immannino/aoc-2020">GitHub</a>.</p>
+        </header>
+        <div class="global-actions">
+            <button @click="runAll()" class="run-all button" :class="{ 'is-loading': allRunning }"><span v-if="!allRunning">Run All Solutions</span></button>
+        </div>
+        <div class="solutions">
+            <div class="day" :key="index" v-for="(day,index) in Object.keys(days)">
+                <h4>{{days[day].name}}</h4>
+                <div class="parts">
+                    <div class="part">
+                        <div class="name">Part 1</div>
+                        <div class="result">
+                            <span>Solution: </span>
+                            <span class="text" v-if="days[day]['1'].result">{{days[day]['1'].result}}</span>
+                            <span class="pending" v-else>PENDING</span>
+                        </div>
+                        <div class="time">
+                            <span>Time: </span>
+                            <span class="text" v-if="days[day]['1'].time">{{days[day]['1'].time}}</span>
+                            <span class="pending" v-else>PENDING</span>
+                        </div>
+                        <div class="run">
+                            <a class="button" href="javascript:" :class="{ 'is-loading': days[day]['1'].running }" @click="run(day, '1')">
+                                <span v-if="!days[day][1].running">[ Run ]</span>
+                                <span v-else>[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="part">
+                        <div class="name">Part 2</div>
+                        <div class="result">
+                            <span>Solution: </span>
+                            <span class="text" v-if="days[day]['2'].result">{{days[day]['2'].result}}</span>
+                            <span class="pending" v-else>PENDING</span>
+                        </div>
+                        <div class="time">
+                            <span>Time: </span>
+                            <span class="text" v-if="days[day]['2'].time">{{days[day]['2'].time}}</span>
+                            <span class="pending" v-else>PENDING</span>
+                        </div>
+                        <div class="run">
+                            <a class="button" href="javascript:" :class="{ 'is-loading': days[day]['2'].running }" @click="run(day, '2')">
+                                <span v-if="!days[day][2].running">[ Run ]</span>
+                                <span v-else>[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputs">
+                    <div class="danger" v-if="userTestDataHasError">{{userTestDataHasError}}</div>
+                    <div class="form">
+                        <label for="File">
+                            Upload custom test data:
+                            <input type="file" name="TextData" id="TestData" accept="text/plain" @change="handleUserTestDataUpload">
+                        </label>
+                        <button @click.prevent="runUserTest(day)" :disabled="!userTestDataHasInput" class="bracket-button button" :class="{ 'is-loading': days[day]['1'].running || days[day]['2'].running }">
+                            <span v-if="userTestData && (days[day][1].running || days[day][2].running)">[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</span>
+                            <span v-else>[ Run Tests ]</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <span>Made by <a href="https://spaghet.me" target="_blank">tones</a></span>&nbsp;|
+        <span><a href="https://adventofcode.com/2020">Advent of Code</a></span>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

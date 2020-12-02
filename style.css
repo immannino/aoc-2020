@@ -1,0 +1,262 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --background: #0f0f23;
+  --text-color: white;
+  --alt-color: #404087;
+  --action-color: springgreen;
+  --action-text: #0f0f23;
+  --danger-color: red;
+  --danger-text: white;
+  --disabled-color: lightgray;
+  --disabled-text: black;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Source Code Pro", monospace;
+}
+
+body {
+  min-height: 100vh;
+  height: 100%;
+  background-color: midnightblue;
+  background-color: var(--background, midnightblue);
+  color: black;
+  color: var(--text-color, black);
+  font-size: clamp(14px, 2vw, 16px);
+}
+
+h1 {
+    font-size: 3rem;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin: 1rem 0 0.25rem;
+}
+
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+#app > * + * {
+    margin-top: 1rem;
+}
+
+.danger {
+  background: red;
+  background: var(--danger-color, red);
+  color: white;
+  color: var(--danger-text, white);
+  padding: 0.5rem 0.25rem;
+}
+
+.cancel {
+  background-color: lightgray;
+  color: black;
+}
+
+em {
+    font-style: normal;
+    text-shadow: 0 0 5px #ffffff;
+}
+
+header p {
+    margin: 0.5rem 0;
+    font-size: 14px;
+}
+
+header a {
+    color: var(--action-color, springgreen);
+}
+
+button {
+    padding: 0.25rem 0.5rem;
+    font-size: 16px;
+    border: none;
+    background: springgreen;
+    background: var(--action-color, springgreen);
+    color: #0f0f23;
+    color: var(--action-text, #0f0f23);
+}
+  
+button:disabled {
+    cursor: not-allowed;
+    filter: brightness(1.25);
+}
+
+a, button { 
+    transition: all 0.2s ease;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+a:visited {
+    color: var(--text-color, white);
+    text-decoration: none;
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  top: 100%;
+  background: #2b2b59;
+  background: var(--alt-color, #2b2b59);
+  color: white;
+  color: var(--text-color, white);
+  padding: 0.5rem;
+  font-size: 16px;
+}
+
+footer a:visited {
+    color: #b0b0ff;
+}
+
+.bracket-button,
+a.button {
+    background: none!important;
+    color: #2b2b59;
+    color: var(--alt-color, #2b2b59);
+    text-decoration: none;
+}
+
+a.button.disabled,
+.bracket-button:disabled {
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* ---- site styles */
+
+.run-all.button {
+  width: 100%;
+}
+
+.day {
+  margin: 1.5rem 0;
+  border-top: 10px solid var(--alt-color, #404087);
+  border-bottom: 2px dashed var(--alt-color, #404087);
+  border-right: 2px dashed var(--alt-color, #404087);
+  border-left: 2px dashed var(--alt-color, #404087);
+  padding: 0 0.25rem 0.5rem;
+}
+
+.day + .day {
+    margin-top: 3rem;
+}
+
+.day h4 {
+    margin-top: 0.5rem;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.inputs > button {
+    min-width: fit-content;
+}
+
+
+.parts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 1rem;
+}
+
+.part {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.25rem;
+    border: 1px solid white;
+    min-width: 40%;
+}
+
+.result,
+.time {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.text {
+    color: springgreen;
+}
+
+.time, .result, .pending {
+    font-size: 12px;
+}
+
+.name {
+    text-decoration: underline;
+}
+
+.run { margin: 0 auto; font-size: 16px; }
+
+.pending {
+    color: var(--alt-color);
+}
+
+
+/* --- Loaders, utils, and such */
+
+.button.is-loading::after,
+.loader,
+.select.is-loading::after,
+.control.is-loading::after {
+  -webkit-animation: spinAround 500ms infinite linear;
+  animation: spinAround 500ms infinite linear;
+  border: 2px solid #b0b0ff;
+  filter: brightness(3.15);
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 1em;
+  position: relative;
+  width: 1em;
+  margin: 0 auto;
+  margin-top: -17px;
+}
+
+@-webkit-keyframes spinAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+    input {
+        width: 180px;
+    }
+
+    .parts {
+        flex-direction: column;
+    }
+
+    .part {
+        width: 100%;
+    }
+}
