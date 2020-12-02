@@ -5,7 +5,7 @@ new Vue({
         days: {},
         dayNames: [
             '--- Day 1: Report Repair ---',
-            '--- Day 2: ---',
+            '--- Day 2: Password Philosophy ---',
             '--- Day 3: ---',
             '--- Day 4: ---',
             '--- Day 5: ---',
@@ -38,7 +38,7 @@ new Vue({
     async mounted() {
         const days = new Date().getDate();
         // const count = days <= 25 ? days : 25;
-        const count = 1;
+        const count = 2;
         await this.init(count);
         this.$forceUpdate();
     },
@@ -48,7 +48,8 @@ new Vue({
 
             await Promise.all[
                 this.run(1,1),
-                this.run(1,2)
+                this.run(1,2),
+                this.run(2,1)
             ];
 
             this.allRunning = false;
@@ -58,7 +59,7 @@ new Vue({
 
                 this.days[`${i}`] = {
                     data: null,
-                    dataUrl: 'data/day1-a.txt',
+                    dataUrl: `data/day${i}.txt`,
                     name: this.dayNames[i - 1],
                     errMessage: null,
                     '1': {

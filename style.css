@@ -140,11 +140,22 @@ a.button.disabled,
 
 .day {
   margin: 1.5rem 0;
-  border-top: 10px solid var(--alt-color, #404087);
-  border-bottom: 2px dashed var(--alt-color, #404087);
-  border-right: 2px dashed var(--alt-color, #404087);
-  border-left: 2px dashed var(--alt-color, #404087);
   padding: 0 0.25rem 0.5rem;
+}
+
+.day:nth-child(even) {
+  border-top: 10px solid    white;
+  border-bottom: 2px dashed white;
+  border-right: 2px dashed  white;
+  border-left: 2px dashed   white;
+}
+
+.day:nth-child(odd) {
+  border-top: 10px solid   #d84d4d;
+  border-bottom: 2px dashed#d84d4d;
+  border-right: 2px dashed #d84d4d;
+  border-left: 2px dashed  #d84d4d;
+
 }
 
 .day + .day {
