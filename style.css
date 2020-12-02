@@ -132,6 +132,11 @@ a.button.disabled,
   text-decoration: line-through;
 }
 
+.bracket-button:hover:not(:disabled),
+a.button:hover {
+  color: springgreen;
+}
+
 /* ---- site styles */
 
 .run-all.button {
@@ -209,6 +214,14 @@ a.button.disabled,
 
 .name {
     text-decoration: underline;
+}
+
+.name a {
+  color: white;
+}
+
+.name a::after {
+  content: ' ' url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=);
 }
 
 .run { margin: 0 auto; font-size: 16px; }

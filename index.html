@@ -42,7 +42,7 @@
                 <h4>{{days[day].name}}</h4>
                 <div class="parts">
                     <div class="part">
-                        <div class="name">Part 1</div>
+                        <div class="name"><a :href="`https://github.com/immannino/aoc-2020/tree/master/workers/${days[day]['1'].workerUrl}`" target="_blank">Part 1</a></div>
                         <div class="result">
                             <span>Solution: </span>
                             <span class="text" v-if="days[day]['1'].result">{{days[day]['1'].result}}</span>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="part">
-                        <div class="name">Part 2</div>
+                        <div class="name"><a :href="`https://github.com/immannino/aoc-2020/tree/master/workers/${days[day]['2'].workerUrl}`" target="_blank">Part 2</a></div>
                         <div class="result">
                             <span>Solution: </span>
                             <span class="text" v-if="days[day]['2'].result">{{days[day]['2'].result}}</span>
