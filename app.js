@@ -6,7 +6,7 @@ new Vue({
         dayNames: [
             '--- Day 1: Report Repair ---',
             '--- Day 2: Password Philosophy ---',
-            '--- Day 3: ---',
+            '--- Day 3: Toboggan Trajectory ---',
             '--- Day 4: ---',
             '--- Day 5: ---',
             '--- Day 6: ---',
@@ -36,10 +36,7 @@ new Vue({
         userTestDataHasError: null
     },
     async mounted() {
-        const days = new Date().getDate();
-        // const count = days <= 25 ? days : 25;
-        const count = 2;
-        await this.init(count);
+        await this.init(3);
         this.$forceUpdate();
     },
     methods: {
@@ -50,7 +47,9 @@ new Vue({
                 this.run(1,1),
                 this.run(1,2),
                 this.run(2,1),
-                this.run(2,2)
+                this.run(2,2),
+                this.run(3,1),
+                this.run(3,2)
             ];
 
             this.allRunning = false;
