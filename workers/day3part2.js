@@ -1,13 +1,14 @@
 self.onmessage = async ({data}) => {
     const { day, part, startTime, testData } = data;
 
+    const lines = testData.split('\n');
 
     const part2Promises = await Promise.all([
-        traverse({ right: 1, down: 1 }, testData),
-        traverse({ right: 3, down: 1 }, testData),
-        traverse({ right: 5, down: 1 }, testData),
-        traverse({ right: 7, down: 1 }, testData),
-        traverse({ right: 1, down: 2 }, testData),
+        traverse({ right: 1, down: 1 }, lines),
+        traverse({ right: 3, down: 1 }, lines),
+        traverse({ right: 5, down: 1 }, lines),
+        traverse({ right: 7, down: 1 }, lines),
+        traverse({ right: 1, down: 2 }, lines),
     ]);
 
     const result = part2Promises.reduce((m, n) => m * n);

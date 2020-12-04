@@ -1,10 +1,12 @@
 self.onmessage = async ({data}) => {
     const { day, part, startTime, testData } = data;
 
+    const lines = testData.split('\n');
+
     // Format inputs
     let inputs = [];
 
-    for (let line of testData) {
+    for (let line of lines) {
         let [pos, l, pw] = line.split(' ');
 
         const [fPos, sPos] = pos.split('-');

@@ -1,7 +1,9 @@
 self.onmessage = async ({data}) => {
     const { day, part, startTime, testData } = data;
 
-    const result = await traverse({ right: 3, down: 1 }, testData);
+    const lines = testData.split('\n');
+
+    const result = await traverse({ right: 3, down: 1 }, lines);
 
     const temp = Number(Date.now()) - startTime;
 

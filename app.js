@@ -7,7 +7,7 @@ new Vue({
             '--- Day 1: Report Repair ---',
             '--- Day 2: Password Philosophy ---',
             '--- Day 3: Toboggan Trajectory ---',
-            '--- Day 4: ---',
+            '--- Day 4: Passport Processing ---',
             '--- Day 5: ---',
             '--- Day 6: ---',
             '--- Day 7: ---',
@@ -36,7 +36,11 @@ new Vue({
         userTestDataHasError: null
     },
     async mounted() {
-        await this.init(3);
+        // init to how many puzzles have been solved.
+        await this.init(4);
+
+        // Seems to not reactively update on its own
+        // since populating nested objects.
         this.$forceUpdate();
     },
     methods: {
@@ -49,7 +53,9 @@ new Vue({
                 this.run(2,1),
                 this.run(2,2),
                 this.run(3,1),
-                this.run(3,2)
+                this.run(3,2),
+                this.run(4,1),
+                this.run(4,2)
             ];
 
             this.allRunning = false;
@@ -87,7 +93,7 @@ new Vue({
                 this.days[day].data = testData;
             } else if (!this.days[day].data) {
                 const response = await fetch(this.days[day].dataUrl);
-                this.days[day].data = await (await response.text()).split('\n');
+                this.days[day].data = await response.text();
             }
 
             this.days[day][part].worker = new Worker(`workers/${this.days[day][part].workerUrl}`);
@@ -102,7 +108,6 @@ new Vue({
             this.days[day][part].worker.onmessage = (ev) => {
                 const { day, part, endTime, result } = ev.data;
 
-                console.log(endTime, result);
                 this.days[day][part].running = false;
                 this.days[day][part].time = endTime;
                 this.days[day][part].result = result;

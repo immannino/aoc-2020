@@ -1,9 +1,11 @@
 self.onmessage = async ({data}) => {
     const { day, part, startTime, testData } = data;
 
+    const lines = testData.split('\n');
+
     let inputs = [];
 
-    for (let line of testData) {
+    for (let line of lines) {
         let [minMax, l, pw] = line.split(' ');
 
         const [min, max] = minMax.split('-');
