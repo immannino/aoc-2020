@@ -33,7 +33,8 @@ new Vue({
         allRunning: false,
         userTestData: null,
         userTestDataHasInput: false,
-        userTestDataHasError: null
+        userTestDataHasError: null,
+        filterNewest: false
     },
     async mounted() {
         // init to how many puzzles have been solved.
@@ -154,6 +155,9 @@ new Vue({
                 this.run(day, '1', this.userTestData),
                 this.run(day, '2', this.userTestData)
             ])
+        },
+        changeFilter() {
+            this.filterNewest = !this.filterNewest;
         }
     }
 })

@@ -144,8 +144,17 @@ a.button:hover {
 }
 
 .day {
-  margin: 1.5rem 0;
+  margin: 0.5rem 0;
   padding: 0 0.25rem 0.5rem;
+}
+
+.solutions {
+  display: flex;
+  flex-direction: column;
+}
+
+.reverse {
+  flex-direction: column-reverse;
 }
 
 .day:nth-child(even) {
@@ -164,7 +173,7 @@ a.button:hover {
 }
 
 .day + .day {
-    margin-top: 3rem;
+    /* margin-top: 1rem; */
 }
 
 .day h4 {
@@ -230,6 +239,11 @@ a.button:hover {
     color: var(--alt-color);
 }
 
+.filter-button {
+  margin-top: 0.5rem;
+  background: lightgray;
+}
+
 
 /* --- Loaders, utils, and such */
 
@@ -269,7 +283,6 @@ a.button:hover {
     transform: rotate(359deg);
   }
 }
-
 
 @media screen and (max-width: 600px) {
     input {

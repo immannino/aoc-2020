@@ -36,8 +36,12 @@
         </header>
         <div class="global-actions">
             <button @click="runAll()" class="run-all button" :class="{ 'is-loading': allRunning }"><span v-if="!allRunning">Run All Solutions</span></button>
+            <button @click="changeFilter()" class="run-all button filter-button">
+                <span v-if="filterNewest">&#9660; Newest</span>
+                <span v-else>&#9650; Oldest</span>
+            </button>
         </div>
-        <div class="solutions">
+        <div class="solutions" :class="{ 'reverse': filterNewest }">
             <div class="day" :key="index" v-for="(day,index) in Object.keys(days)">
                 <h4>{{days[day].name}}</h4>
                 <div class="parts">
