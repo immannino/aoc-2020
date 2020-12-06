@@ -9,7 +9,7 @@ new Vue({
             '--- Day 3: Toboggan Trajectory ---',
             '--- Day 4: Passport Processing ---',
             '--- Day 5: Binary Boarding ---',
-            '--- Day 6: ---',
+            '--- Day 6: Custom Customs ---',
             '--- Day 7: ---',
             '--- Day 8: ---',
             '--- Day 9: ---',
@@ -37,7 +37,7 @@ new Vue({
     },
     async mounted() {
         // init to how many puzzles have been solved.
-        await this.init(5);
+        await this.init(6);
 
         // Seems to not reactively update on its own
         // since populating nested objects.
@@ -57,7 +57,9 @@ new Vue({
                 this.run(4,1),
                 this.run(4,2),
                 this.run(5,1),
-                this.run(5,2)
+                this.run(5,2),
+                this.run(6,1),
+                this.run(6,2)
             ];
 
             this.allRunning = false;
