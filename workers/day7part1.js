@@ -1,4 +1,3 @@
-// Get rule for Shiny Gold Bag
 let bagNodes = {
 
 };
@@ -10,7 +9,15 @@ self.onmessage = async ({data}) => {
     
     let result = 0;
 
-    // Changes work in progress.
+    buildBagGraph(lines);
+
+    for (let key of Object.keys(bagNodes)) {
+        if (bagNodes[key].color === 'shiny gold') {
+            continue;
+        } else if (bagNodes[key].carries("shiny gold")) {
+			result += 1;
+		}
+    }
 
     const temp = Number(Date.now()) - startTime;
 
@@ -27,28 +34,35 @@ function buildBagGraph(lines) {
         const [color, rule] = line.split(' bags contain ');
         let values = rule.split('.')[0];
 
-        const parentKey = trimParentKey(name);
+        const parentColor = trimParentKey(color);
         
-        bags[parentKey] = {}
+        if (!bagNodes[parentColor]) {
+            bagNodes[parentColor] = new BagNode(color);
+        }
 
         if (values !== 'no other bags') {
             values = values.split(', ');
 
             for (let val of values) {
                 const number = String(val).trim().substring(0, 1);
-                const keyName = trimKey(val);
+                const childColor = trimKey(val);
 
-                bags[parentKey][keyName] = number;
-            }   
-        } else {
-            bags[parentKey] = false;
+                if (!bagNodes[childColor]) {
+                    bagNodes[childColor] = new BagNode(childColor);
+                }
+
+                bagNodes[parentColor].contains.push(bagNodes[childColor]);
+                bagNodes[parentColor].numContains.push(Number(number));
+            }
         }
     }
 }
 
 class BagNode {
-    constructor(color, contains, numContains) {
-
+    constructor(color, contains = [], numContains = []) {
+        this.color = color;
+        this.contains = contains;
+        this.numContains = numContains;
     }
 
     carries(bagColor) {
@@ -66,7 +80,7 @@ class BagNode {
     }
 
     count() {
-        let count = 0;
+        let count = 1;
 
         for (let i in this.contains) {
             count += this.numContains[i] * this.contains[i].count();
@@ -79,7 +93,7 @@ class BagNode {
 // Too lazy to refactor these methods, but just trims the inputs.
 
 function trimKey(key) {
-    let keyName = String(key).trim().substring(2);
+    let keyName = String(key).trim().substring(2).split(' bag')[0];
     
     if (keyName.charAt(keyName.length - 1) === 's') {
         keyName = keyName.substring(0, keyName.length - 1);

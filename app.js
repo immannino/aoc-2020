@@ -38,7 +38,7 @@ new Vue({
     },
     async mounted() {
         // init to how many puzzles have been solved.
-        await this.init(6);
+        await this.init(7);
 
         // Seems to not reactively update on its own
         // since populating nested objects.
@@ -60,7 +60,9 @@ new Vue({
                 this.run(5,1),
                 this.run(5,2),
                 this.run(6,1),
-                this.run(6,2)
+                this.run(6,2),
+                this.run(7,1),
+                this.run(7,2)
             ];
 
             this.allRunning = false;
