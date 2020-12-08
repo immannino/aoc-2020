@@ -11,7 +11,7 @@ new Vue({
             '--- Day 5: Binary Boarding ---',
             '--- Day 6: Custom Customs ---',
             '--- Day 7: Handy Haversacks ---',
-            '--- Day 8: ---',
+            '--- Day 8: Handheld Halting ---',
             '--- Day 9: ---',
             '--- Day 10: ---',
             '--- Day 11: ---',
@@ -38,7 +38,7 @@ new Vue({
     },
     async mounted() {
         // init to how many puzzles have been solved.
-        await this.init(7);
+        await this.init(8);
 
         // Seems to not reactively update on its own
         // since populating nested objects.
