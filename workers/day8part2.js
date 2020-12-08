@@ -2,62 +2,93 @@ self.onmessage = async ({data}) => {
     const { day, part, startTime, testData } = data;
 
     const lines = testData.split('\n');
-    
-    let seen = new Set();
+    const instructions = parseLines(lines);
 
     // accumulator
-    let result = 0;
+    let result = execute(instructions);
 
-    // Stack Pointer
-    let index = 0;
+    function parseLines(lines) {
+        let instructions = [];
 
-    // Break while loop
-    let hasEndOfInstruction = false;
+        for (let line of lines) {
+            const [op, val] = line.split(' ');
+            const numVal =  Number(val);
 
-    // while(!hasEndOfInstruction) {
-    //     const [opVal, val] = lines[index].split(' ');
-
-    //     let op = opVal;
-    //     let startIndex = index;
-
-    //     callStackIndexMap[index] = op;
-
-    //     // if (op === 'jmp' || op === 'nop') {
-    //     //     const tempOp = op === 'nop' ? 'jmp' : 'nop';
-    
-    //     //     if (simulateMove(tempOp, val)) {
-    //     //         callStackIndexMap[index] = tempOp;
-    //     //         op = tempOp;
-    //     //     }
-    //     // }
-
-    //     // Execute Program
-    //     execute(op, val);
-
-
-    //     const [tempOp, tempVal] = lines[index].split(' ');
-
-    //     // Break Case
-    //     if (index === (lines.length)) {
-    //         hasEndOfInstruction = true;
-    //         break;
-    //     }
-    // }
-
-    function execute(op, val) {
-        switch (op) {
-            case 'acc':
-                result += Number(val);
-                index += 1;
-                break;
-            case 'jmp':
-                index += Number(val);
-                break;
-            case 'nop':
-                index += 1;
-                break;
-            default:
+            instructions.push({ op, val: numVal });
         }
+
+        return instructions;
+    }
+
+    function execute(instructions) {
+        let r = 0; // accumulator
+        let i = 0; // Stack Pointer
+
+        // Break while loop
+        while (i < instructions.length) {
+            const { op, val } = instructions[i];
+            let tempR = 0;
+
+            switch (op) {
+                case 'acc':
+                    r += val;
+                    i += 1;
+                    break;
+                case 'jmp':
+                    instructions[i].op = 'nop';
+                    tempR = simulate(i, r, instructions);
+
+                    if (tempR) {
+                        return tempR;
+                    }
+
+                    instructions[i].op = 'jmp';
+                    i += val;
+                    break;
+                case 'nop':
+                    instructions[i].op = 'jmp';
+                    tempR = simulate(i, r, instructions);
+
+                    if (tempR) {
+                        return tempR;
+                    }
+
+                    instructions[i].op = 'nop';
+                    i += 1;
+                    break;
+                default:
+            }
+        }
+        return null;
+    }
+
+    function simulate(i, r, instructions) {
+        let seen = new Set();
+        
+        while (i < instructions.length && !seen.has(i)) {
+            seen.add(i);
+            const { op, val } = instructions[i];
+
+            switch (op) {
+                case 'acc':
+                    r += val;
+                    i += 1;
+                    break;
+                case 'jmp':
+                    i += val;
+                    break;
+                case 'nop':
+                    i += 1;
+                    break;
+                default:
+            }
+        }
+
+        if (i === instructions.length) {
+            return r;
+        }
+
+        return null;
     }
 
     const temp = Number(Date.now()) - startTime;
