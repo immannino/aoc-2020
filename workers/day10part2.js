@@ -23,13 +23,34 @@ self.onmessage = async ({data}) => {
 
     let result = 0;
 
+    let possibleMoveCount = [];
+    
     for (let i = 0; i < adapters.length; i++) {
-        console.log({ i, a: adapters[i], b: adapters[i + 1] });
+        let tempCount = 0;
+        // console.log({ i, a: adapters[i], b: adapters[i + 1] });
         if (isValidMove(adapters[i], adapters[i + 1])) {
-            result += 1;
+            console.log({ c: adapters[i], one: adapters[i + 1] });
+            tempCount += 1;
+        }
+
+        if (isValidMove(adapters[i], adapters[i + 2])) {
+            console.log({ c: adapters[i], two: adapters[i + 2] });
+            tempCount += 1;
+        }
+
+        if (isValidMove(adapters[i], adapters[i + 3])) {
+            console.log({ c: adapters[i], three: adapters[i + 3] });
+            tempCount += 1;
+        }
+
+        if (tempCount) {
+            possibleMoveCount.push(tempCount);
         }
     }
 
+    result = possibleMoveCount.reduce((a,b) => a * b);
+
+    
     function isValidMove(curr, next) {
         return (next - curr) === 1 ||
                (next - curr) === 2 ||
