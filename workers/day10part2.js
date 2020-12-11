@@ -2,60 +2,39 @@ self.onmessage = async ({data}) => {
     const { day, part, startTime, testData } = data;
 
     const array = testData.split('\n');
-    const adapters = array.map(e => Number(e)).sort((a,b) => a - b);
+    const filtered = array.map(e => Number(e)).sort((a,b) => a - b);
+
+    // add in the device 
+    const adapters = [0, ...filtered, (filtered[filtered.length - 1] + 3)];
 
     /**
-     * Idea:
+     * I strugged with this and ultimately adopted this solution from a guide.
+     * https://dev.to/thibpat/solving-day-10-of-advent-of-code-2020-in-javascript-5ajo
      * 
-     * Build a graph similar to day 8?
-     * 
-     * and then BFS through each iteration keeping track of count of iterations or possible paths
-     * 
-     * 1. Create Node type
-     * 2. Build Graph
-     * 3. Run DFS against it. 
-     * 
-     * Ugh. I am no good at this need to refresh/relearn.
-     * 
-     * https://codeburst.io/implementing-dfs-and-bfs-using-javascript-5034f3cee9a1
-     * 
+     * @author thibpat
+     * @repo https://github.com/tpatel/advent-of-code-2020/blob/main/day10.js
      */
 
     let result = 0;
 
-    let possibleMoveCount = [];
+    function combination(array, memo={}) {
+        const key = array.join`,`;
+        if(key in memo) {
+            return memo[key];
+        }
     
-    for (let i = 0; i < adapters.length; i++) {
-        let tempCount = 0;
-        // console.log({ i, a: adapters[i], b: adapters[i + 1] });
-        if (isValidMove(adapters[i], adapters[i + 1])) {
-            console.log({ c: adapters[i], one: adapters[i + 1] });
-            tempCount += 1;
+        let result = 1;
+        for(let i=1; i<array.length-1; i++) {
+            if(array[i+1]-array[i-1] <= 3) {
+                const arr2 = [array[i-1]].concat(array.slice(i+1))
+                result += combination(arr2, memo);
+            }
         }
-
-        if (isValidMove(adapters[i], adapters[i + 2])) {
-            console.log({ c: adapters[i], two: adapters[i + 2] });
-            tempCount += 1;
-        }
-
-        if (isValidMove(adapters[i], adapters[i + 3])) {
-            console.log({ c: adapters[i], three: adapters[i + 3] });
-            tempCount += 1;
-        }
-
-        if (tempCount) {
-            possibleMoveCount.push(tempCount);
-        }
+        memo[key] = result;
+        return result;
     }
 
-    result = possibleMoveCount.reduce((a,b) => a * b);
-
-    
-    function isValidMove(curr, next) {
-        return (next - curr) === 1 ||
-               (next - curr) === 2 ||
-               (next - curr) === 3;
-    }
+    result = combination(adapters);
 
     const temp = Number(Date.now()) - startTime;
 
